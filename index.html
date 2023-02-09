@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div>Teachable Machine Image Model</div>
+<button type="button" onclick="init()">Start</button>
+        <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Jua&display=swap" rel="stylesheet">
+	
+	<style>body {
+    font-family: 'Jua', sans-serif;\
+  background-color: #eeeeee;
+   text-align: center;
+}
+
+#h {
+	font-size: 5em;
+}
+.file-upload {
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 130px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+#www {
+  font-size: 4em;
+}
+
+p {
+  font-size: 1.6em;
+}</style>
+<!--  Copyright (c) 2022 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
+</head>
+<body>
+  <div id="h">심해어상 테스트</div>
+      <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+  <button id="w" class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">이미지 업로드</button>
+
+  <div class="image-upload-wrap">
+    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+    <div class="drag-text">
+      <h3>드레그 하거나 드롭하여 이미지 올리기<br>(PC용)</h3>
+    </div>
+  </div>
+  <div class="file-upload-content">
+    <img class="file-upload-image" id="image-face" src="#" alt="your image" />
+    <p class="result-message"></p>
+    <div id="label-container"></div>
+    <div class="image-title-wrap">
+      <button type="button" onclick="removeUpload()" class="remove-image">사진<span class="remove image">_삭제</span></button>
+    </div>
+  </div>
+</div>
+    <div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://deep-seafishface.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-63550914fb6a811c"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox_ww2q"></div>
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    const URL = "https://teachablemachine.withgoogle.com/models/6n5WDOxmR/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+      
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+       
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function predict() {
+       
+		var image = document.getElementById("image-face");
+        const prediction = await model.predict(image, false);
+      prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+      console.log(prediction[0].className);
+      var resultMessage;
+      switch (prediction[0].className) {
+        case "덤보옥토퍼스":
+        resultMessage = "당신은 귀여운 덤보옥토퍼스 상입니다!"
+        break;
+        case "메가마우스샤크":
+        resultMessage = "당신은 메가마우스샤크 상이에요!" 
+        break;
+        case "블롭피쉬":
+        resultMessage = "당신은 지완이 같은 블롭피쉬 상이랍니다!"
+        break;
+        case "스타게이져":
+        resultMessage = "우와! 당신은 스타게이져 상이군요!"
+        break;
+        case "펭투스":
+        resultMessage = "우와! 당신은 펭투스 상이군요!"
+        break;
+    }
+      $('.result-message').html(resultMessage);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }
+  
+		</script>
+  <p>안녕하세요<br>made.by.baekinho</p>
+	<script>function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+init().then(()=>{
+  console.log("시작합니다");
+  predict()
+})
+
+  } else {
+    removeUpload();
+  }
+}
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function () {
+		$('.image-upload-wrap').addClass('image-dropping');
+	});
+	$('.image-upload-wrap').bind('dragleave', function () {
+		$('.image-upload-wrap').removeClass('image-dropping');
+});</script>
+</body>
+
+
+
+</html>
+
+<div id="webcam-container"></div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/F_2HqCwSI/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop() {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }
+</script>
+
+	</body>
+    <!-- Copyright (c) 2023 by Jun (https://codepen.io/JuJue1231/pen/LYrEGRq)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+</html>
